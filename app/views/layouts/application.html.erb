@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>QuotingTool</title>
+    <title>Quoting Tool | Nuage Networks</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <!-- Fonts -->
+    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' %>
+
+    <!-- Icons -->
+    <%= stylesheet_link_tag 'argon/nucleo/css/nucleo.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' %>
+
+    <!-- CSS -->
+    <%= stylesheet_link_tag 'argon/argon', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -12,5 +22,10 @@
 
   <body>
     <%= yield %>
+
+    <%= javascript_include_tag 'https://code.jquery.com/jquery-3.4.1.min.js' %>
+    <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js' %>
+    <%= javascript_include_tag 'argon/argon', media: 'all', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>
