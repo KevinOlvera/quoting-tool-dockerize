@@ -1,0 +1,27 @@
+<%= form_with(model: nuage_version) do |form| %>
+  <% if nuage_version.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(nuage_version.errors.count, "error") %> prohibited this nuage_version from being saved:</h2>
+
+      <ul>
+        <% nuage_version.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.number_field :value %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

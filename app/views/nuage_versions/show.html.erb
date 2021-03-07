@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @nuage_version.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @nuage_version.value %>
+</p>
+
+<%= link_to 'Edit', edit_nuage_version_path(@nuage_version) %> |
+<%= link_to 'Back', nuage_versions_path %>

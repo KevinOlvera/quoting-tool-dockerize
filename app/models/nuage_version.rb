@@ -1,0 +1,2 @@
+class NuageVersion < ApplicationRecord
+end

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Nuage Versions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @nuage_versions.each do |nuage_version| %>
+      <tr>
+        <td><%= nuage_version.name %></td>
+        <td><%= nuage_version.value %></td>
+        <td><%= link_to 'Show', nuage_version %></td>
+        <td><%= link_to 'Edit', edit_nuage_version_path(nuage_version) %></td>
+        <td><%= link_to 'Destroy', nuage_version, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Nuage Version', new_nuage_version_path %>
