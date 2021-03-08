@@ -14,3 +14,8 @@ ActiveStorage.start()
 
 //= require jquery
 //= require jquery_ujs
+
+require("packs/argon/argon")
+require("packs/argon/bootstrap-notify.min")
+require("packs/argon/sweetalert2.all")
+require("packs/main")
