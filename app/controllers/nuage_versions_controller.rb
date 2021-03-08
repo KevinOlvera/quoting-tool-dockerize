@@ -25,7 +25,7 @@ class NuageVersionsController < ApplicationController
 
     respond_to do |format|
       if @nuage_version.save
-        format.html { redirect_to @nuage_version, notice: "Nuage version was successfully created." }
+        format.html { redirect_to nuage_versions_path, notice: "Nuage version was successfully created." }
         format.json { render :show, status: :created, location: @nuage_version }
       else
         format.html { render :new, status: :unprocessable_entity }
