@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :regions
   resources :hourly_costs
   resources :quotes
   resources :cloud_management_systems
