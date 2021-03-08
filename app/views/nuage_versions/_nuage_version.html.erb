@@ -1,0 +1,11 @@
+<tr>
+  <td><%= link_to "#{nuage_version.id}", nuage_version, method: :get %></td>
+  <td><span class="text-muted"><%= nuage_version.name %></span></td>
+  <td><span class="text-muted"><%= nuage_version.value %></span></td>
+  <td><%= localize(nuage_version.created_at, :format => :long) %></td>
+  <td>
+    <%= link_to 'Show', nuage_version, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_nuage_version_path(nuage_version), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Destroy', nuage_version, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>  
+</tr>

@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  overflow-x: hidden;
+}
+
+.logo-img {
+  height: 60px;
+}
+
+.nokia-color {
+  color: #124191 !important;
+}

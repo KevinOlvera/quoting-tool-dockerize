@@ -5,20 +5,15 @@
       <%= image_tag "NOKIA_LOGO_WHITE_MR.png", :class => "logo-img img-fluid ml--3" %>
     </span>
     <!-- Navbar links -->
-    <!--<ul class="navbar-nav">
-      <li class="nav-item">
-        <h1 class="text-white mb-0">Nuage Professional Services</h1>
-      </li>
-    </ul>-->
     <span>
       <% if user_signed_in? %>
       <ul class="navbar-nav align-items-center ml-auto ml-md-0">
         <li class="nav-item dropdown">
           <a class="nav-link pr-0" style="cursor: pointer;" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
-              <!--<span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="#">
-                </span>-->
+              <span class="avatar avatar-sm rounded-circle">
+                <%= image_tag "profile-user.png" %>
+              </span>
               <div class="media-body ml-2 d-none d-lg-block">
                 <span class="mb-0 text-sm  font-weight-bold"><%= current_user.email %></span>
               </div>
