@@ -1,0 +1,37 @@
+<%= form_with(model: hourly_cost) do |form| %>
+  <% if hourly_cost.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hourly_cost.errors.count, "error") %> prohibited this hourly_cost from being saved:</h2>
+
+      <ul>
+        <% hourly_cost.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :lead_architect %>
+    <%= form.number_field :lead_architect %>
+  </div>
+
+  <div class="field">
+    <%= form.label :design_engineer %>
+    <%= form.number_field :design_engineer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :network_integration %>
+    <%= form.number_field :network_integration %>
+  </div>
+
+  <div class="field">
+    <%= form.label :technical_project_manager %>
+    <%= form.number_field :technical_project_manager %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

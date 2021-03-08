@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Qty Ranges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @qty_ranges.each do |qty_range| %>
+      <tr>
+        <td><%= qty_range.name %></td>
+        <td><%= qty_range.value %></td>
+        <td><%= link_to 'Show', qty_range %></td>
+        <td><%= link_to 'Edit', edit_qty_range_path(qty_range) %></td>
+        <td><%= link_to 'Destroy', qty_range, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Qty Range', new_qty_range_path %>

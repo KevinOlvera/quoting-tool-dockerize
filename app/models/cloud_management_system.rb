@@ -1,0 +1,2 @@
+class CloudManagementSystem < ApplicationRecord
+end

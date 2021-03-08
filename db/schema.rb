@@ -10,12 +10,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_083208) do
+ActiveRecord::Schema.define(version: 2021_03_08_231731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "cloud_management_systems", force: :cascade do |t|
+    t.string "name"
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ha_models", force: :cascade do |t|
+    t.string "name"
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hourly_costs", force: :cascade do |t|
+    t.integer "lead_architect"
+    t.integer "design_engineer"
+    t.integer "network_integration"
+    t.integer "technical_project_manager"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "migrations", force: :cascade do |t|
+    t.string "name"
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "nuage_versions", force: :cascade do |t|
+    t.string "name"
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "qty_ranges", force: :cascade do |t|
+    t.string "name"
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "quotes", force: :cascade do |t|
+    t.string "account_name"
+    t.integer "quote_owner"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_quotes_on_user_id"
+  end
+
+  create_table "revenues", force: :cascade do |t|
     t.string "name"
     t.integer "value"
     t.datetime "created_at", precision: 6, null: false
@@ -34,4 +87,12 @@ ActiveRecord::Schema.define(version: 2021_03_07_083208) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "verticals", force: :cascade do |t|
+    t.string "name"
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "quotes", "users"
 end

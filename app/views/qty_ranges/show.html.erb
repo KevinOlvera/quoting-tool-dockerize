@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @qty_range.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @qty_range.value %>
+</p>
+
+<%= link_to 'Edit', edit_qty_range_path(@qty_range) %> |
+<%= link_to 'Back', qty_ranges_path %>

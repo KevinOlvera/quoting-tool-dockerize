@@ -1,0 +1,2 @@
+class HourlyCost < ApplicationRecord
+end

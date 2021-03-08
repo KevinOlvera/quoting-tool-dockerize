@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @vertical.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @vertical.value %>
+</p>
+
+<%= link_to 'Edit', edit_vertical_path(@vertical) %> |
+<%= link_to 'Back', verticals_path %>

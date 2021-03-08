@@ -1,0 +1,2 @@
+class QtyRange < ApplicationRecord
+end

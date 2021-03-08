@@ -1,0 +1,2 @@
+module HaModelsHelper
+end

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hourly Costs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lead architect</th>
+      <th>Design engineer</th>
+      <th>Network integration</th>
+      <th>Technical project manager</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hourly_costs.each do |hourly_cost| %>
+      <tr>
+        <td><%= hourly_cost.lead_architect %></td>
+        <td><%= hourly_cost.design_engineer %></td>
+        <td><%= hourly_cost.network_integration %></td>
+        <td><%= hourly_cost.technical_project_manager %></td>
+        <td><%= link_to 'Show', hourly_cost %></td>
+        <td><%= link_to 'Edit', edit_hourly_cost_path(hourly_cost) %></td>
+        <td><%= link_to 'Destroy', hourly_cost, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hourly Cost', new_hourly_cost_path %>

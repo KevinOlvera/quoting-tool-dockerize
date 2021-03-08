@@ -1,0 +1,27 @@
+<%= form_with(model: qty_range) do |form| %>
+  <% if qty_range.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(qty_range.errors.count, "error") %> prohibited this qty_range from being saved:</h2>
+
+      <ul>
+        <% qty_range.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.number_field :value %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

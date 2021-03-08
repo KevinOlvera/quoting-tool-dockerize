@@ -1,0 +1,2 @@
+class HaModel < ApplicationRecord
+end

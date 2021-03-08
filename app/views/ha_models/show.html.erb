@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ha_model.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @ha_model.value %>
+</p>
+
+<%= link_to 'Edit', edit_ha_model_path(@ha_model) %> |
+<%= link_to 'Back', ha_models_path %>
