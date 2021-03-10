@@ -1,16 +1,52 @@
-<h2>Forgot your password?</h2>
+<style>
+    body {
+        background-color: #124191!important;
+    }
+</style>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="main-content bg-transparent">
+  <!-- Header -->
+  <div class="header pt-5 pb-5">
+    <div class="container">
+      <div class="header-body text-center mb-7">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+            <%= image_tag "NOKIA_LOGO_WHITE_MR.png", :class => "img-fluid" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+  <!-- Page content -->
+  <div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card bg-secondary border-0 mb-0">
+          <div class="card-body px-lg-5 py-lg-5">
+            <h1 class="text-default text-center mt-2 mb-3">Forgot your password?</h1>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+              <div class="form-group">
+                <div class="input-group input-group-merge input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                  </div>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control", :placeholder => "Email" %>
+                </div>
+              </div>
+              <div class="text-right mb-3 mt--2">
+                <%= render "devise/shared/links" %>
+              </div>
+              <div class="text-center mb--2">
+                <%= f.submit "Send password reset email", :class => "btn btn-primary my-2" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+<%= render "partials/alt_footer" %>
