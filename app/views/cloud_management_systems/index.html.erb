@@ -1,29 +1,58 @@
-<p id="notice"><%= notice %></p>
+<%= render "partials/nav" %>
 
-<h1>Cloud Management Systems</h1>
+<!-- Navigation Steps -->
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Nuage Professional Services</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item"><a href="/" data-method="get"><i class="fas fa-home"></i></a></li>
+              <li class="breadcrumb-item text-white">Admin</li>
+              <li class="breadcrumb-item"><%= link_to "Cloud Management Systems", cloud_management_systems_path, method: :get %></li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-6 col-5 text-right">
+          <%= link_to 'New CMS', new_cloud_management_system_path, :class => "btn btn-sm btn-neutral" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container-fluid mt--6 mb--4">
+  <!-- Project Infromation -->
+  <div class="card">
+    <!-- Card header -->
+    <div class="card-header border-0">
+      <div class="row">
+        <div class="col-6">
+          <h3 class="mb-0">Cloud Management Systems</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Light table -->
+    <div class="table-responsive">
+      <table class="table align-items-center table-flush">
+        <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Value</th>
+          <th>Created at</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <%= render @cloud_management_systems %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
 
-  <tbody>
-    <% @cloud_management_systems.each do |cloud_management_system| %>
-      <tr>
-        <td><%= cloud_management_system.name %></td>
-        <td><%= cloud_management_system.value %></td>
-        <td><%= link_to 'Show', cloud_management_system %></td>
-        <td><%= link_to 'Edit', edit_cloud_management_system_path(cloud_management_system) %></td>
-        <td><%= link_to 'Destroy', cloud_management_system, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Cloud Management System', new_cloud_management_system_path %>
+<%= render "partials/footer" %>

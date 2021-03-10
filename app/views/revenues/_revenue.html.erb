@@ -1,0 +1,11 @@
+<tr>
+  <td><%= link_to "#{revenue.id}", revenue, method: :get %></td>
+  <td><span class="text-muted"><%= revenue.name %></span></td>
+  <td><span class="text-muted"><%= revenue.value %></span></td>
+  <td><%= localize(revenue.created_at, :format => :long) %></td>
+  <td>
+    <%= link_to 'Show', revenue, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_revenue_path(revenue), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Delete', revenue, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>  
+</tr>

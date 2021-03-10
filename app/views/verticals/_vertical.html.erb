@@ -1,0 +1,11 @@
+<tr>
+  <td><%= link_to "#{vertical.id}", vertical, method: :get %></td>
+  <td><span class="text-muted"><%= vertical.name %></span></td>
+  <td><span class="text-muted"><%= vertical.value %></span></td>
+  <td><%= localize(vertical.created_at, :format => :long) %></td>
+  <td>
+    <%= link_to 'Show', vertical, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_vertical_path(vertical), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Delete', vertical, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>  
+</tr>

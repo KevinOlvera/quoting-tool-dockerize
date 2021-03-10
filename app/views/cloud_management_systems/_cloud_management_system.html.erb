@@ -1,0 +1,11 @@
+<tr>
+  <td><%= link_to "#{cloud_management_system.id}", cloud_management_system, method: :get %></td>
+  <td><span class="text-muted"><%= cloud_management_system.name %></span></td>
+  <td><span class="text-muted"><%= cloud_management_system.value %></span></td>
+  <td><%= localize(cloud_management_system.created_at, :format => :long) %></td>
+  <td>
+    <%= link_to 'Show', cloud_management_system, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_cloud_management_system_path(cloud_management_system), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Delete', cloud_management_system, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>  
+</tr>

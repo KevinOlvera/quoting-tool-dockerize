@@ -1,0 +1,11 @@
+<tr>
+  <td><%= link_to "#{ha_model.id}", ha_model, method: :get %></td>
+  <td><span class="text-muted"><%= ha_model.name %></span></td>
+  <td><span class="text-muted"><%= ha_model.value %></span></td>
+  <td><%= localize(ha_model.created_at, :format => :long) %></td>
+  <td>
+    <%= link_to 'Show', ha_model, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_ha_model_path(ha_model), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Delete', ha_model, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>  
+</tr>

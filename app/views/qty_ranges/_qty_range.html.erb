@@ -1,0 +1,11 @@
+<tr>
+  <td><%= link_to "#{qty_range.id}", qty_range, method: :get %></td>
+  <td><span class="text-muted"><%= qty_range.name %></span></td>
+  <td><span class="text-muted"><%= qty_range.value %></span></td>
+  <td><%= localize(qty_range.created_at, :format => :long) %></td>
+  <td>
+    <%= link_to 'Show', qty_range, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_qty_range_path(qty_range), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Delete', qty_range, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>  
+</tr>

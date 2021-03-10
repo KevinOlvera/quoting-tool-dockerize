@@ -1,0 +1,11 @@
+<tr>
+  <td><%= link_to "#{region.id}", region, method: :get %></td>
+  <td><span class="text-muted"><%= region.name %></span></td>
+  <td><span class="text-muted"><%= region.value %></span></td>
+  <td><%= localize(region.created_at, :format => :long) %></td>
+  <td>
+    <%= link_to 'Show', region, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_region_path(region), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Delete', region, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>  
+</tr>
