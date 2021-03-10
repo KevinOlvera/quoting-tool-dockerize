@@ -37,5 +37,14 @@
       <%= yield %>
     </div>
 
+    <%= javascript_include_tag 'https://code.jquery.com/jquery-3.4.1.min.js' %>
+    <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js' %>
+    <!--<%= javascript_include_tag 'argon/bootstrap-notify.min.js', media: 'all', 'data-turbolinks-track': 'reload' %>-->
+    <%= javascript_include_tag 'argon/argon.js', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--<%= javascript_include_tag 'argon/sweetalert2.all.min.js', media: 'all', 'data-turbolinks-track': 'reload' %>-->
+
+    <%= javascript_include_tag 'main.js', media: 'all', 'data-turbolinks-track': 'reload' %>
+
   </body>
 </html>
