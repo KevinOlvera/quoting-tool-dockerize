@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_234600) do
 
   create_table "quotes", force: :cascade do |t|
     t.string "account_name"
-    t.integer "quote_owner"
+    t.string "quote_owner"
     t.string "account_contact"
     t.string "presales_engineer"
     t.string "bdm_engineer"
