@@ -1,27 +1,850 @@
-<%= form_with(model: quote) do |form| %>
-  <% if quote.errors.any? %>
+<%= form_with(model: @quote) do |form| %>
+  <% if @quote.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(quote.errors.count, "error") %> prohibited this quote from being saved:</h2>
+      <h2><%= pluralize(@quote.errors.count, "error") %> prohibited this quote from being saved:</h2>
 
       <ul>
-        <% quote.errors.each do |error| %>
+        <% @quote.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :account_name %>
-    <%= form.text_field :account_name %>
+  <!-- Navigation Steps -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <!--<h6 class="h2 text-white d-inline-block mb-0">Customer Engineering</h6>-->
+            <h6 class="h2 text-white d-inline-block mb-0">Nuage Professional Services</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="/" data-method="get"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><%= link_to "Quoting Tool", quotes_path, method: :get %></li>
+                <li id="business" class="breadcrumb-item"><a>Business Information</a></li>
+                <li id="vns" class="breadcrumb-item"><a>VNS</a></li>
+                <li id="vcs" class="breadcrumb-item"><a>VCS</a></li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-lg-6 col-5 text-right">
+            <a id="back_s" class="btn btn-sm btn-neutral">Back</a>
+            <a id="next_s" class="btn btn-sm btn-neutral">Next</a>
+            <%= form.submit :class => "btn btn-sm btn-neutral", :id => "create_s" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :quote_owner %>
-    <%= form.number_field :quote_owner %>
+  <div id="container1" class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card-wrapper">
+
+          <!-- Form - Regional Information -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Regional Information</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <%= form.label :account_name, "Account Name", :class => "form-control-label" %>
+                  <div class="form-group">
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                      </div>
+                      <%= form.text_field :account_name, :class => "form-control", :placeholder => "Your account" %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <%= form.label :quote_owner, "Quote Owner ( Who created this? )", :class => "form-control-label" %>
+                  <div class="form-group">
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                      </div>
+                      <%= form.text_field :quote_owner, :class => "form-control", :placeholder => "Your name" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :vertical, :class => "form-control-label" %>
+                  <%= form.collection_select :vertical, @verticals.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :cluster, :class => "form-control-label" %>
+                  <%= form.collection_select :cluster, @regions.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - Main Customer Contact -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Main Customer Contact</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="form-group">
+                <%= form.label :customer_name, "Customer Name", :class => "form-control-label" %>
+                <div class="form-group">
+                  <div class="input-group input-group-merge">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                    </div>
+                    <%= form.text_field :customer_name, :class => "form-control", :placeholder => "Customer name" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <%= form.label :customer_phone, "Customer Phone", :class => "form-control-label" %>
+                  <div class="form-group">
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
+                      </div>
+                      <%= form.telephone_field :customer_phone, :class => "form-control", :placeholder => "Customer phone" %>
+                      <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-group">
+                    <%= form.label :customer_email, "Customer Email", :class => "form-control-label" %>
+                    <div class="form-group">
+                      <div class="input-group input-group-merge">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <%= form.email_field :customer_email, :class => "form-control", :placeholder => "Email address" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :customer_position, "Customer Position", :class => "form-control-label" %>
+                <%= form.text_field :customer_position, :class => "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :comments, :class => "form-control-label" %>
+                <%= form.text_area :comments, :rows => 4, :resize => "none", :class => "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - VSP (Virtualized Services Platform) -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Virtualized Services Platform - VSP</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :current_version, "Current Version", :class => "form-control-label" %>
+                  <%= form.collection_select :current_version, @nuage_versions.all, :id, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :version_to_install, "Version to Install", :class => "form-control-label" %>
+                  <%= form.collection_select :version_to_install, @nuage_versions.all, :id, :name, {}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :datacenters, :class => "form-control-label" %>
+                  <%= form.number_field :datacenters, :class => "form-control" %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :ha_model, "HA Model", :class => "form-control-label" %>
+                  <%= form.collection_select :ha_model, @ha_models.all, :value, :name, {}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+              <div class="text-right container">
+                <div class="row justify-content-end">
+                  <span class="form-control-label align-middle pr-3">Migration</span>
+                  <label class="custom-toggle">
+                    <%= form.check_box :migration %>
+                    <span class="custom-toggle-slider rounded-circle"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="card-wrapper">
+
+          <!-- Form - Nokia Contacts -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Nokia Contacts</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="form-group">
+                <%= form.label :account_contact, "Contact Name", :class => "form-control-label" %>
+                <div class="form-group">
+                  <div class="input-group input-group-merge">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                    </div>
+                    <%= form.text_field :account_contact, :class => "form-control", :placeholder => "Your contact" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :presales_engineer, "Presales Engineer", :class => "form-control-label" %>
+                <div class="form-group">
+                  <div class="input-group input-group-merge">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                    </div>
+                    <%= form.text_field :presales_engineer, :class => "form-control", :placeholder => "Engineer name" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :bdm_engineer, "BDM Engineer", :class => "form-control-label" %><!--MISSING-->
+                <select class="form-control" id="quote_bdm_engineer" name="quote[bdm_engineer]">
+                  <option>None</option>
+                  <option>Mauricio Rojas</option>
+                  <option>Miguel Manzur</option>
+                  <option>Pablo Verisimo</option>
+                  <option>P.H. Paulo Goncalves</option>
+                  <option>Paulo Motta</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :project_manager, "Project Manager", :class => "form-control-label" %>
+                <div class="form-group">
+                  <div class="input-group input-group-merge">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                    </div>
+                    <%= form.text_field :project_manager, :class => "form-control", :placeholder => "Manager name" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - Bussines Information -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Bussines Information</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="form-group">
+                <%= form.label :salesforce_operation, "Salesforce Operation", :class => "form-control-label" %>
+                <%= form.text_field :salesforce_operation, :class => "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :qualification, :class => "form-control-label" %><!--MISSING-->
+                <select class="form-control" id="quote_qualification" name="quote[qualification]">
+                  <option>None</option>
+                  <option>Commit/Secure</option>
+                  <option>Upside/Risk</option>
+                  <option>Rest of Pipe</option>
+                </select>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 form-group">
+                  <%= form.label :wbs, "WBS", :class => "form-control-label" %>
+                  <%= form.text_field :wbs, :class => "form-control" %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :po, "PO", :class => "form-control-label" %>
+                  <%= form.text_field :po, :class => "form-control" %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :revenue, :class => "form-control-label" %>
+                <%= form.collection_select :revenue, @revenues.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+              </div>
+
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :weeks_national_travel, "Weeks of National Travel", :class => "form-control-label" %>
+                  <%= form.number_field :weeks_national_travel, :class => "form-control" %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :weeks_international_travel, "Weeks of International Travel", :class => "form-control-label" %>
+                  <%= form.number_field :weeks_international_travel, :class => "form-control" %>
+                </div>
+              </div>
+
+              <div class="text-right container">
+                <div class="row justify-content-end">
+                  <span class="form-control-label align-middle pr-3">Risk Order</span>
+                  <label class="custom-toggle">
+                    <%= form.check_box :risk_order %>
+                    <span class="custom-toggle-slider rounded-circle"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+
+  <div id="container2" class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card-wrapper">
+
+          <!-- Virtualized Network Services -->
+          <div class="card">
+            <!-- Card body -->
+            <div class="container-fluid mt-2 mb-2">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h2 class="mb-0">Virtualized Network Services</h2>
+                </div>
+                <div class="col text-right">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mt-4">
+                      <%= form.check_box :include_sdwan, :class => "custom-control-input" %>
+                      <%= form.label :include_sdwan, "Include SD-WAN on this project?", :class => "custom-control-label" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - Nuage Networks SD-WAN CPEs -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Nuage Networks SD-WAN CPEs</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :nsgc, "NSG-C Volume", :class => "form-control-label" %>
+                  <%= form.collection_select :nsgc, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :nsge, "NSG-E Volume", :class => "form-control-label" %>
+                  <%= form.collection_select :nsge, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :nsgx, "NSG-X Volume", :class => "form-control-label" %>
+                  <%= form.collection_select :nsgx, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - Standard Features -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Standard Features</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :dual_uplink, :class => "custom-control-input" %>
+                    <%= form.label :dual_uplink, "Dual Uplink", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :internet_breakout, :class => "custom-control-input" %>
+                    <%= form.label :internet_breakout, "Internet Breakout", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :pat_nat, :class => "custom-control-input" %>
+                    <%= form.label :pat_nat, "PAT/NAT", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :ipsec, :class => "custom-control-input" %>
+                    <%= form.label :ipsec, "IPsec", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :dhcp, :class => "custom-control-input" %>
+                    <%= form.label :dhcp, "DHCP", :class => "custom-control-label" %>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :l3l4_firewall, :class => "custom-control-input" %>
+                    <%= form.label :l3l4_firewall, "L3 & L4 Firewall", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :port_statistics, :class => "custom-control-input" %>
+                    <%= form.label :port_statistics, "Port Statistics", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :notification_app, :class => "custom-control-input" %>
+                    <%= form.label :notification_app, "Notification App", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :vns_portal, :class => "custom-control-input" %>
+                    <%= form.label :vns_portal, "VNS Portal", :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="card-wrapper">
+
+          <!-- Form - Advanced Features -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Advanced Features</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :bgp_ospf, :class => "custom-control-input" %>
+                    <%= form.label :bgp_ospf, "BGP & OSPF", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :redundant_cpes, :class => "custom-control-input" %>
+                    <%= form.label :redundant_cpes, "Redundant CPEs", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :managed_wifi, :class => "custom-control-input" %>
+                    <%= form.label :managed_wifi, "Managed Wifi", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :managed_lte, :class => "custom-control-input" %>
+                    <%= form.label :managed_lte, "Managed LTE", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :qos, :class => "custom-control-input" %>
+                    <%= form.label :qos, "QoS", :class => "custom-control-label" %>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :l7_acls, :class => "custom-control-input" %>
+                    <%= form.label :l7_acls, "L7 ACLs", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :network_performance_visibility, :class => "custom-control-input" %>
+                    <%= form.label :network_performance_visibility, "Network Perfomance Visibility", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :application_visibility_routing, :class => "custom-control-input" %>
+                    <%= form.label :application_visibility_routing, "Application Visibility & Routing", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :service_chaining, :class => "custom-control-input" %>
+                    <%= form.label :service_chaining, "Service Chaining", :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Form - Enhanced Features -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Enhanced Features</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :public_cloud_conectivity, "Public Cloud Conectivity", :class => "form-control-label" %>
+                  <select class="form-control" id="quote_public_cloud_conectivity" name="quote[public_cloud_conectivity]">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :branch_hosted_vnfs, "Branch Hosted VNFs", :class => "form-control-label" %>
+                  <select class="form-control" id="quote_branch_hosted_vnfs" name="quote[branch_hosted_vnfs]">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                </div>
+              </div>
+
+              <hr class="mt-2">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :ipv6, :class => "custom-control-input" %>
+                    <%= form.label :ipv6, "IPv6", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :saas_breakout, :class => "custom-control-input" %>
+                    <%= form.label :saas_breakout, "SaaS Breakout", :class => "custom-control-label" %>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :automated_security_service_insertion, :class => "custom-control-input" %>
+                    <%= form.label :automated_security_service_insertion, "Automated Security Service Insertion", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :conext_aware_security_analytics, :class => "custom-control-input" %>
+                    <%= form.label :conext_aware_security_analytics, "Conext Aware Security Analytics", :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="container3" class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card-wrapper">
+
+          <!-- Virtualized Network Services -->
+          <div class="card">
+            <!-- Card body -->
+            <div class="container-fluid mt-2 mb-2">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h2 class="mb-0">Virtualized Cloud Services</h2>
+                </div>
+                <div class="col text-right">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mt-4">
+                      <%= form.check_box :include_sdn, :class => "custom-control-input" %>
+                      <%= form.label :include_sdn, "Include SDN on this project?", :class => "custom-control-label" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - Nuage Networks SDN -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Nuage Networks SDN</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :vrsk, "VRS-K (KVM) QTY", :class => "form-control-label" %>
+                  <%= form.collection_select :vrsk, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :vrsh, "VRS-H (Hyper V) QTY", :class => "form-control-label" %>
+                  <%= form.collection_select :vrsh, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :vrsv, "VRS-V (VMware) QTY", :class => "form-control-label" %>
+                  <%= form.collection_select :vrsv, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="custom-control custom-checkbox mb-3 text-right">
+                    <%= form.check_box :independent_vsd_cluster, :class => "custom-control-input" %>
+                    <%= form.label :independent_vsd_cluster, "Independent VSD Cluster?", :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - Advanced Integrations -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Advanced Integrations</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :datacenter_switches, :class => "custom-control-input" %>
+                    <%= form.label :datacenter_switches, "Datacenter Switches", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :firewalls, :class => "custom-control-input" %>
+                    <%= form.label :firewalls, "Firewalls", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :load_balancers, :class => "custom-control-input" %>
+                    <%= form.label :load_balancers, "Load Balancers", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :nokia_7750_router_integration, :class => "custom-control-input" %>
+                    <%= form.label :nokia_7750_router_integration, "Nokia 7750 Router Integration", :class => "custom-control-label" %>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :syslog_server, :class => "custom-control-input" %>
+                    <%= form.label :syslog_server, "SysLog Server", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :bgp_peering, :class => "custom-control-input" %>
+                    <%= form.label :bgp_peering, "BGP Peering", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :api_integration, :class => "custom-control-input" %>
+                    <%= form.label :api_integration, "API Integration", :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="card-wrapper">
+
+          <!-- Form - Orchestration Layer -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-5">
+                  <h3 class="mb-0">Orchestration Layer</h3>
+                </div>
+                <div class="col text-right">
+                  <div class="custom-control custom-checkbox">
+                    <%= form.check_box :telco_cloud, :class => "custom-control-input" %>
+                    <%= form.label :telco_cloud, "Telco cloud (Does the project includes VNFs?)", :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :cms1, "CMS 1", :class => "form-control-label" %>
+                  <%= form.collection_select :cms1, @cmss.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :cms2, "CMS 2", :class => "form-control-label" %>
+                  <%= form.collection_select :cms2, @cmss.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :cms3, "CMS 3", :class => "form-control-label" %>
+                  <%= form.collection_select :cms3, @cmss.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :openshift, :class => "custom-control-input" %>
+                    <%= form.label :openshift, :class => "custom-control-label" %>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :containers, :class => "custom-control-input" %>
+                    <%= form.label :containers, :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Form - Nokia Datacenter Hardware -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Nokia Datacenter Hardware</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col form-group">
+                  <%= form.label :wbx_210, "210 WBX", :class => "form-control-label" %>
+                  <%= form.collection_select :wbx_210, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :nokia_7750, :class => "form-control-label" %>
+                  <%= form.collection_select :nokia_7750, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+
+                <div class="col form-group">
+                  <%= form.label :ale_switches, "ALE Switches", :class => "form-control-label" %>
+                  <%= form.collection_select :ale_switches, @qty_ranges.all, :value, :name, {include_blank: false}, {class: 'form-control'} %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form - Advanced Features -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+              <h3 class="mb-0">Advanced Features</h3>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :traffic_steering, :class => "custom-control-input" %>
+                    <%= form.label :traffic_steering, "Traffic Steering", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :advanced_policies, :class => "custom-control-input" %>
+                    <%= form.label :advanced_policies, "Advanced Policies", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :dpdk, :class => "custom-control-input" %>
+                    <%= form.label :dpdk, "DPDK", :class => "custom-control-label" %>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :reporting, :class => "custom-control-input" %>
+                    <%= form.label :reporting, "Reporting", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :multiple_domains, :class => "custom-control-input" %>
+                    <%= form.label :multiple_domains, "Multiple Domains", :class => "custom-control-label" %>
+                  </div>
+
+                  <div class="custom-control custom-checkbox mb-3">
+                    <%= form.check_box :sriov, :class => "custom-control-input" %>
+                    <%= form.label :sriov, "SRIOV", :class => "custom-control-label" %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row justify-content-center">
+    <div class="col-lg-2 col-2 text-right">
+      <a id="back" class="btn btn-block btn-lg btn-neutral">Back</a>
+    </div>
+    <div id="next" class="col-lg-2 col-2 text-right">
+      <a id="next" class="btn btn-block btn-lg btn-primary text-white">Next</a>
+    </div>
+    <div id="create" class="col-lg-2 col-2 text-right">
+      <%= form.submit :class => "btn btn-block btn-lg btn-primary", :id => "create" %>
+    </div>
   </div>
 <% end %>

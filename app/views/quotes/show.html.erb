@@ -1,14 +1,1175 @@
-<p id="notice"><%= notice %></p>
+<%= render "partials/nav" %>
 
-<p>
-  <strong>Account name:</strong>
-  <%= @quote.account_name %>
-</p>
+<!-- Navigation Steps -->
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <!--<h6 class="h2 text-white d-inline-block mb-0">Customer Engineering</h6>-->
+          <h6 class="h2 text-white d-inline-block mb-0">Nuage Professional Services</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item"><a href="/" data-method="get"><i class="fas fa-home"></i></a></li>
+              <li class="breadcrumb-item"><%= link_to "Quoting Tool", quotes_path, method: :get %></li>
+              <li class="breadcrumb-item"><a>Summary</a></li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-6 col-5 text-right">
+          <%= link_to "Edit", edit_quote_path(@quote), :class => "btn btn-sm btn-info" %>
+          <%= link_to "Delete", @quote, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+          <%= link_to 'Download PDF', quote_path(@quote, format: :pdf), :class => "btn btn-sm btn-neutral" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Quote owner:</strong>
-  <%= @quote.quote_owner %>
-</p>
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-lg-6">
 
-<%= link_to 'Edit', edit_quote_path(@quote) %> |
+      <div class="card-wrapper">
+
+        <!-- Project Infromation -->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header border-0">
+            <div class="row">
+              <div class="col-6">
+                <h3 class="mb-0">Project Information</h3>
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Account name</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= @quote.account_name %></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Project complexity coeficient</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= @quote.complexity_coeficient %></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Quoting responsible</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= @quote.quote_owner %></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Vertical</span>
+                </td>
+                <td>
+                    <span class="text-muted">
+                      <% case @quote.vertical
+                         when 0 %>
+                         None
+                      <% when 1 %>
+                         Enterprise
+                      <% when 2 %>
+                        Government
+                      <% when 3 %>
+                        Telco and/or Service Provider
+                      <% end %>
+                    </span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Cluster</span>
+                </td>
+                <td>
+                    <span class="text-muted">
+                      <% case @quote.cluster
+                         when 0 %>
+                         None
+                      <% when 1 %>
+                        TIER 1 - Mexico & Brazil
+                      <% when 2 %>
+                        TIER 2 - Southern Cone
+                      <% when 3 %>
+                        TIER 3 - Andinos
+                      <% when 4 %>
+                        TIER 4 - Central America & The Caribean
+                      <% when 5 %>
+                        TIER 5 - Other (US, Europe, Emea)
+                      <% end %>
+                    </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Travel Required -->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header border-0">
+            <div class="row">
+              <div class="col-6">
+                <h3 class="mb-0">Travel required</h3>
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Weeks of National Travel</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= @quote.weeks_national_travel %></span>
+                </td>
+                <td>
+                  <span class="font-weight-bold">Total weeks of travel</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= @quote.weeks_national_travel + @quote.weeks_international_travel %></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Weeks of International Travel</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= @quote.weeks_international_travel %></span>
+                </td>
+                <td>
+                  <span class="font-weight-bold">Total travel budget</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= number_to_currency(@quote.travel_expenses_total) %></span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- VNS Features -->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header border-0">
+            <div class="row">
+              <div class="col-6">
+                <h3 class="mb-0">VNS Features</h3>
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Include SD-WAN on this project</span>
+                </td>
+                <td>
+                  <% if @quote.include_sdwan == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Number of NSG-C</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.nsgc %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Number of NSG-E</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.nsge %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Number of NSG-X</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.nsgx %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <!-- Standard Features
+              t.integer :dual_uplink
+              t.integer :internet_breakout
+              t.integer :pat_nat
+              t.integer :ipsec
+              t.integer :dhcp
+              t.integer :l3l4_firewall
+              t.integer :port_statistics
+              t.integer :notification_app
+              t.integer :vns_portal
+              -->
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Dual Uplink</span>
+                </td>
+                <td>
+                  <% if @quote.dual_uplink == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Internet Breakout</span>
+                </td>
+                <td>
+                  <% if @quote.internet_breakout == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">PAT/NAT</span>
+                </td>
+                <td>
+                  <% if @quote.pat_nat == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">IPSec</span>
+                </td>
+                <td>
+                  <% if @quote.ipsec == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">DHCP</span>
+                </td>
+                <td>
+                  <% if @quote.dhcp == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">L3 & L4 Firewall</span>
+                </td>
+                <td>
+                  <% if @quote.l3l4_firewall == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Port Statistics</span>
+                </td>
+                <td>
+                  <% if @quote.port_statistics == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Notification App</span>
+                </td>
+                <td>
+                  <% if @quote.notification_app == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">VNS Portal</span>
+                </td>
+                <td>
+                  <% if @quote.vns_portal == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <!--
+              # VNS - Advanced Features
+              t.integer :bgp_ospf
+              t.integer :redundant_cpes
+              t.integer :managed_wifi
+              t.integer :managed_lte
+              t.integer :qos
+              t.integer :l7_acls
+              t.integer :network_performance_visibility
+              t.integer :application_visibility_routing
+              t.integer :service_chaining
+              -->
+              <tr>
+                <td>
+                  <span class="font-weight-bold">BGP & OSPF</span>
+                </td>
+                <td>
+                  <% if @quote.bgp_ospf == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Redundant CPEs</span>
+                </td>
+                <td>
+                  <% if @quote.redundant_cpes == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Managed Wifi</span>
+                </td>
+                <td>
+                  <% if @quote.managed_wifi == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Managed LTE</span>
+                </td>
+                <td>
+                  <% if @quote.managed_lte == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">QoS</span>
+                </td>
+                <td>
+                  <% if @quote.qos == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">L7 ACLs</span>
+                </td>
+                <td>
+                  <% if @quote.l7_acls == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Network Performance Visibility</span>
+                </td>
+                <td>
+                  <% if @quote.network_performance_visibility == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Application Visibility & Routing</span>
+                </td>
+                <td>
+                  <% if @quote.application_visibility_routing == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Service Chaining</span>
+                </td>
+                <td>
+                  <% if @quote.service_chaining == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <!--
+              # VNS - Enhanced Features
+              t.integer :public_cloud_conectivity
+              t.integer :ipv6
+              t.integer :saas_breakout
+              t.integer :branch_hosted_vnfs
+              t.integer :automated_security_service_insertion
+              t.integer :conext_aware_security_analytics
+              -->
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Public Cloud Conectivity</span>
+                </td>
+                <td>
+                  <% if @quote.public_cloud_conectivity == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">IPv6</span>
+                </td>
+                <td>
+                  <% if @quote.ipv6 == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">SaaS Breakout</span>
+                </td>
+                <td>
+                  <% if @quote.saas_breakout == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Branch Hosted VNFs</span>
+                </td>
+                <td>
+                  <% if @quote.branch_hosted_vnfs == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Automated Security Service Insertion</span>
+                </td>
+                <td>
+                  <% if @quote.automated_security_service_insertion == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Conext Aware Security Analytics</span>
+                </td>
+                <td>
+                  <% if @quote.conext_aware_security_analytics == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+
+      <div class="row">
+        <div class="col-xl-6 col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Design Services</h5>
+                  <span class="h2 font-weight-bold mb-0"><%= number_to_currency(@quote.design_services_total) %></span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow" style="width:43px; height:43px;">
+                    <i class="ni ni-ruler-pencil"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Install Services</h5>
+                  <span class="h2 font-weight-bold mb-0"><%= number_to_currency(@quote.install_services_total) %></span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow" style="width:43px; height:43px;">
+                    <i class="ni ni-settings"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Travel & Expenses</h5>
+                  <span class="h2 font-weight-bold mb-0"><%= number_to_currency(@quote.travel_expenses_total) %></span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow" style="width:43px; height:43px;">
+                    <i class="ni ni-world"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Total Cost</h5>
+                  <span class="h2 font-weight-bold mb-0"><%= number_to_currency(@quote.total_cost) %></span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow" style="width:43px; height:43px;">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+
+        <!-- VSP Information -->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header border-0">
+            <div class="row">
+              <div class="col-6">
+                <h3 class="mb-0">VSP Base Information</h3>
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Migration</span>
+                </td>
+                <td>
+                  <% if @quote.migration == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Current Version</span>
+                </td>
+                <td>
+                    <span class="text-muted">
+                      <% @nuage_versions.each do |version| %>
+                        <% if version.id == @quote.current_version %>
+                          <%= version.name %>
+                        <% end %>
+                      <% end %>
+                    </span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Version to install</span>
+                </td>
+                <td>
+                    <span class="text-muted">
+                      <% @nuage_versions.each do |version| %>
+                        <% if version.id == @quote.version_to_install %>
+                          <%= version.name %>
+                        <% end %>
+                      <% end %>
+                    </span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Datacenters</span>
+                </td>
+                <td>
+                  <span class="text-muted"><%= @quote.datacenters %></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <span class="font-weight-bold">HA Model</span>
+                </td>
+                <td>
+                    <span class="text-muted">
+                      <% if @quote.ha_model == 2 %>
+                        Disaster Recovery
+                      <% elsif %>
+                        Geographycal Redundancy
+                      <% end %>
+                    </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- VCS Features -->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header border-0">
+            <div class="row">
+              <div class="col-6">
+                <h3 class="mb-0">VCS Features</h3>
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <!--
+              # VSC - Nuage SDN
+              t.integer :independent_vsd_cluster
+              t.integer :vrsk
+              t.integer :vrsh
+              t.integer :vrsv
+              -->
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Include SDN on this project</span>
+                </td>
+                <td>
+                  <% if @quote.include_sdn == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Independent VSD Cluster</span>
+                </td>
+                <td>
+                  <% if @quote.independent_vsd_cluster == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Number of VRS-K</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.vrsk %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Number of VRS-H</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.vrsh %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Number of VRS-V</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.vrsv %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <!--
+              # VSC - Orchestration Layer
+              t.integer :telco_cloud
+              t.integer :cms1
+              t.integer :cms2
+              t.integer :cms3
+              t.integer :openshift
+              t.integer :containers
+              -->
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Teclo Cloud</span>
+                </td>
+                <td>
+                  <% if @quote.telco_cloud == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">CMS 1</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @cmss.each do |cms| %>
+                      <% if cms.value == @quote.cms1 %>
+                        <%= cms.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">CMS 2</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @cmss.each do |cms| %>
+                      <% if cms.value == @quote.cms2 %>
+                        <%= cms.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">CMS 3</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @cmss.each do |cms| %>
+                      <% if cms.value == @quote.cms3 %>
+                        <%= cms.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Openshift</span>
+                </td>
+                <td>
+                  <% if @quote.openshift == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Containers</span>
+                </td>
+                <td>
+                  <% if @quote.containers == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <!--
+              # VSC - Nokia Datacenter Hardware
+              t.integer :wbx_210
+              t.integer :nokia_7750
+              t.integer :ale_switches
+              # VSC - Advanced Features
+              t.integer :traffic_steering
+              t.integer :advanced_policies
+              t.integer :reporting
+              t.integer :multiple_domains
+              t.integer :dpdk
+              t.integer :sriov
+              -->
+              <tr>
+                <td>
+                  <span class="font-weight-bold">210 WBX</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.wbx_210 %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Nokia 7750</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.nokia_7750 %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">ALE Switches</span>
+                </td>
+                <td>
+                  <span class="text-muted">
+                    <% @qty_ranges.each do |qty_range| %>
+                      <% if qty_range.value == @quote.ale_switches %>
+                        <%= qty_range.name %>
+                      <% end %>
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Traffic Steering</span>
+                </td>
+                <td>
+                  <% if @quote.traffic_steering == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Advanced Policies</span>
+                </td>
+                <td>
+                  <% if @quote.advanced_policies == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Reporting</span>
+                </td>
+                <td>
+                  <% if @quote.reporting == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Multiple Domains</span>
+                </td>
+                <td>
+                  <% if @quote.multiple_domains == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">DPDK</span>
+                </td>
+                <td>
+                  <% if @quote.dpdk == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">SRIOV</span>
+                </td>
+                <td>
+                  <% if @quote.sriov == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <!--
+              # VSC - Advanced Integrations
+              t.integer :datacenter_switches
+              t.integer :firewalls
+              t.integer :load_balancers
+              t.integer :syslog_server
+              t.integer :bgp_peering
+              t.integer :api_integration
+              t.integer :nokia_7750_router_integration
+              -->
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Datacenter Switches</span>
+                </td>
+                <td>
+                  <% if @quote.datacenter_switches == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Firewalls</span>
+                </td>
+                <td>
+                  <% if @quote.firewalls == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Load Balancers</span>
+                </td>
+                <td>
+                  <% if @quote.load_balancers == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">SysLog Server</span>
+                </td>
+                <td>
+                  <% if @quote.syslog_server == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">BGP Peering</span>
+                </td>
+                <td>
+                  <% if @quote.bgp_peering == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">API Integration</span>
+                </td>
+                <td>
+                  <% if @quote.api_integration == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Nokia 7750 Router Integration</span>
+                </td>
+                <td>
+                  <% if @quote.nokia_7750_router_integration == 1 %>
+                    <span class="badge badge-success">Yes</span>
+                  <% elsif %>
+                    <span class="badge badge-warning">No</span>
+                  <% end %>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "partials/footer" %>
 <%= link_to 'Back', quotes_path %>

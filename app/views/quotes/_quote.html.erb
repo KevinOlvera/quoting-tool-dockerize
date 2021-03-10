@@ -1,0 +1,25 @@
+<tr>
+  <td>
+    <%= link_to "#{quote.id}", quote, method: :get %>
+  </td>
+  <td>
+    <span class="text-muted"><%= quote.account_name %></span>
+  </td>
+  <td>
+    <span class="text-muted"><%= quote.quote_owner %></span>
+  </td>
+  <td>
+    <span class="text-muted"><%= quote.complexity_coeficient %></span>
+  </td>
+  <td>
+    <span class="text-muted"><%= number_to_currency(quote.total_cost) %></span>
+  </td>
+  <td>
+    <%= localize(quote.created_at, :format => :long) %>
+  </td>
+  <td>
+    <%= link_to 'Show', quote, :class => "btn btn-sm btn-primary" %>
+    <%= link_to 'Edit', edit_quote_path(quote), :class => "btn btn-sm btn-info" %>
+    <%= link_to 'Delete', quote, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %>
+  </td>
+</tr>

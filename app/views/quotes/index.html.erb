@@ -1,29 +1,57 @@
-<p id="notice"><%= notice %></p>
+<%= render "partials/nav" %>
 
-<h1>Quotes</h1>
+<!-- Navigation Steps -->
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <!--<h6 class="h2 text-white d-inline-block mb-0">Customer Engineering</h6>-->
+          <h6 class="h2 text-white d-inline-block mb-0">Nuage Professional Services</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item"><a href="/" data-method="get"><i class="fas fa-home"></i></a></li>
+              <li class="breadcrumb-item"><%= link_to "Quoting Tool", quotes_path, method: :get %></li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-6 col-5 text-right">
+          <%= link_to "New Quote", new_quote_path, :class => "btn btn-sm btn-neutral" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Account name</th>
-      <th>Quote owner</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @quotes.each do |quote| %>
-      <tr>
-        <td><%= quote.account_name %></td>
-        <td><%= quote.quote_owner %></td>
-        <td><%= link_to 'Show', quote %></td>
-        <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
-        <td><%= link_to 'Destroy', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Quote', new_quote_path %>
+<div class="container-fluid mt--6 mb--4">
+  <!-- Project Infromation -->
+  <div class="card">
+    <!-- Card header -->
+    <div class="card-header border-0">
+      <div class="row">
+        <div class="col-6">
+          <h3 class="mb-0">Quotes</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Light table -->
+    <div class="table-responsive">
+      <table class="table align-items-center table-flush">
+        <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>Account</th>
+          <th>Owner</th>
+          <th>Complexity Coeficient</th>
+          <th>Total Cost</th>
+          <th>Created at</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <%= render @quotes %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
