@@ -12,6 +12,18 @@ RUN apk add --update --no-cache \
   git \
   less \
   libstdc++ \
+  libx11 \
+  libxrender \
+  libxext \
+  libssl1.1 \
+  ca-certificates \
+  fontconfig \
+  freetype \
+  ttf-dejavu \
+  ttf-droid \
+  ttf-freefont \
+  ttf-liberation \
+  ttf-ubuntu-font-family\
   libffi-dev \
   libc-dev \
   linux-headers \
@@ -27,6 +39,14 @@ RUN apk add --update --no-cache \
   python3 \
   tzdata \
   yarn
+
+RUN apk add --update --no-cache --virtual .build-deps \
+  msttcorefonts-installer \
+  update-ms-fonts \
+  fc-cache -f
+
+RUN rm -rf /tmp/*
+RUN apk del .build-deps
 
 RUN gem install bundler -v 2.2.12
 

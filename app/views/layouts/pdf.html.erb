@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nuage Professional Services</title>
+  <!-- Fonts -->
+  <%= wicked_pdf_stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' %>
+
+  <!-- Icons -->
+  <%= wicked_pdf_stylesheet_link_tag 'argon/nucleo/css/nucleo.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= wicked_pdf_stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' %>
+
+  <%= wicked_pdf_stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css' %>
+
+  <!-- CSS -->
+  <%= wicked_pdf_stylesheet_link_tag 'argon/argon', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+<body onload="number_pages()" style="background-color: transparent !important;">
+<%= yield %>
+</body>
+</html>

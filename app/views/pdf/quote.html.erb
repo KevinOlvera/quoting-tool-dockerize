@@ -1,0 +1,136 @@
+<%= wicked_pdf_image_tag( 'NOKIA_LOGO_RGB_MR.png', style: "margin-left:-40px;" ) %>
+
+<h1 style="color: #124191;">Nuage Professional Services</h1>
+
+<table>
+  <tbody>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Project Information</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Nuage VSP Base Information</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Account Name</td>
+    <td><%= @quote.account_name %></td>
+    <td>&nbsp;</td>
+    <td>Migration</td>
+    <td>
+      <% if @quote.migration == 1 %>
+        Yes
+      <% else %>
+        No
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Project Complexity</td>
+    <td><%= @quote.complexity_coeficient %></td>
+    <td>&nbsp;</td>
+    <td>Current Version</td>
+    <td>
+      <% @nuage_versions.each do |version| %>
+        <% if version.id == @quote.current_version %>
+          <%= version.name %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Quoting Responsible</td>
+    <td><%= @quote.quote_owner %></td>
+    <td>&nbsp;</td>
+    <td>Version to Install</td>
+    <td>
+      <% @nuage_versions.each do |version| %>
+        <% if version.id == @quote.version_to_install %>
+          <%= version.name %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Vertical</td>
+    <td>
+      <% @verticals.each do |vertical| %>
+        <% if vertical.value == @quote.vertical %>
+          <%= vertical.name %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>&nbsp;</td>
+    <td>Datacenters</td>
+    <td><%= @quote.datacenters %></td>
+  </tr>
+  <tr>
+    <td>Cluster</td>
+    <td>
+      <% @regions.each do |region| %>
+        <% if region.value == @quote.cluster %>
+          <%= region.name %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>&nbsp;</td>
+    <td>HA Model</td>
+    <td>
+      <% @ha_models.each do |ha_model| %>
+        <% if ha_model.value == @quote.ha_model %>
+          <%= ha_model.name %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Services Cost</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Travel Required</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Design Services</td>
+    <td><%= number_to_currency(@quote.design_services_total) %></td>
+    <td>&nbsp;</td>
+    <td>Weeks of National Travel</td>
+    <td><%= @quote.weeks_national_travel %></td>
+  </tr>
+  <tr>
+    <td>Install Services</td>
+    <td><%= number_to_currency(@quote.install_services_total) %></td>
+    <td>&nbsp;</td>
+    <td>Weeks of International Travle</td>
+    <td><%= @quote.weeks_international_travel %></td>
+  </tr>
+  <tr>
+    <td>Travel & Expenses</td>
+    <td><%= number_to_currency(@quote.travel_expenses_total) %></td>
+    <td>&nbsp;</td>
+    <td>Total Weeks of Travel</td>
+    <td><%= @quote.weeks_national_travel + @quote.weeks_international_travel %></td>
+  </tr>
+  <tr>
+    <td>Total Cost</td>
+    <td><%= number_to_currency(@quote.total_cost) %></td>
+    <td>&nbsp;</td>
+    <td>Total Travel Budget</td>
+    <td><%= number_to_currency(@quote.travel_expenses_total) %></td>
+  </tr>
+  </tbody>
+</table>
+<!-- DivTable.com -->

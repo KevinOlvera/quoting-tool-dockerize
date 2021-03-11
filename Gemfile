@@ -31,7 +31,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Gem to implement a login functionality
 gem 'devise', '~> 4.7', '>= 4.7.3'
-# gem 'orm_adapter', '~> 0.5.0'
+# Gem to create PDFs files
+gem 'wicked_pdf', '~> 2.1'
+gem 'wkhtmltopdf-binary-edge-alpine', '~> 0.12.5.0'
+# gem 'wkhtmltopdf-binary', '~> 0.12.6.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
